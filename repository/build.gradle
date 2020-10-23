@@ -1,0 +1,24 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+
+    implementation libraries.app.timber
+    implementation libraries.app.dagger
+    kapt libraries.app.daggerCompiler
+
+    implementation libraries.app.kotlin
+    implementation libraries.app.rxJava
+    implementation libraries.app.gson
+
+    // Junit 4 and 5
+    testImplementation libraries.test.junit4
+    testImplementation libraries.test.truth
+    testImplementation libraries.test.mockitoKotlin
+    testImplementation libraries.test.hamcrest
+
+}

@@ -1,0 +1,67 @@
+ext {
+    architectureComponents = '2.0.0'
+    daggerVersion = '2.24'
+    kotlinVersion = '1.3.50'
+    okhttpVersion = '4.2.0'
+    retrofitVersion = '2.6.1'
+    rxBindings = '2.0.0'
+
+    buildScript = [
+        kotlin                 : "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}",
+        android                : 'com.android.tools.build:gradle:3.5.0',
+        gradleProperties       : 'com.novoda:gradle-build-properties-plugin:0.4.1',
+    ]
+
+    libraries = [
+        app   : [
+            androidxAppcompat        : "androidx.appcompat:appcompat:1.1.0",
+            androidxRecyclerview     : "androidx.recyclerview:recyclerview:1.0.0",
+            androidxAnimations       : "androidx.dynamicanimation:dynamicanimation:1.0.0",
+            androidxAnnotations      : "androidx.annotation:annotation:1.1.0",
+            androidxMaterial         : "com.google.android.material:material:1.2.0-alpha03",
+            androidxBrowser          : "androidx.browser:browser:1.0.0",
+            androidxGridlayout       : "androidx.gridlayout:gridlayout:1.0.0",
+            androidxCardview         : "androidx.cardview:cardview:1.0.0",
+            androidxConstraint       : "androidx.constraintlayout:constraintlayout:2.0.0-alpha2",
+            androidxLifecycle        : "androidx.lifecycle:lifecycle-extensions:2.1.0",
+            androidxLifecycleCompiler: "android.arch.lifecycle:compiler:2.1.0",
+            androidxPalette          : "androidx.palette:palette:1.0.0",
+            androidxKtCore           : "androidx.core:core-ktx:1.1.0",
+            dagger                   : "com.google.dagger:dagger:${daggerVersion}",
+            daggerAndroid            : "com.google.dagger:dagger-android:${daggerVersion}",
+            daggerAndroidSupport     : "com.google.dagger:dagger-android-support:${daggerVersion}",
+            daggerAndroidCompiler    : "com.google.dagger:dagger-android-processor:${daggerVersion}",
+            daggerCompiler           : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            glide                    : "com.github.bumptech.glide:glide:4.10.0",
+            glideOkhttp              : 'com.github.bumptech.glide:okhttp3-integration:4.10.0',
+            glideProcessor           : 'com.github.bumptech.glide:compiler:4.10.0',
+            gson                     : "com.google.code.gson:gson:2.8.5",
+            kotlin                   : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinVersion}",
+            okhttp3                  : "com.squareup.okhttp3:okhttp:${okhttpVersion}",
+            okhttpLogging            : "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
+            retrofit                 : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitConverter        : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            retrofitRxAdapter        : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            room                     : "androidx.room:room-runtime:${architectureComponents}",
+            roomRxJava               : "androidx.room:room-rxjava2:${architectureComponents}",
+            roomCompiler             : "androidx.room:room-compiler:${architectureComponents}",
+            rxAndroid                : 'io.reactivex.rxjava2:rxandroid:2.0.2',
+            rxBindings               : "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${rxBindings}",
+            rxBindingsKt             : "com.jakewharton.rxbinding2:rxbinding-kotlin:${rxBindings}",
+            rxJava                   : 'io.reactivex.rxjava2:rxjava:2.1.12',
+            timber                   : 'com.jakewharton.timber:timber:3.1.0',
+            ultimateRecyclerview     : 'com.marshalchen.ultimaterecyclerview:library:0.3.18'
+        ],
+
+        test  : [
+            archTest     : "androidx.arch.core:core-testing:${architectureComponents}",
+            hamcrest     : 'org.hamcrest:hamcrest-all:1.3',
+            junit4       : 'junit:junit:4.12',
+            mockito      : 'org.mockito:mockito-core:2.10.0',
+            mockitoKotlin: 'com.nhaarman:mockito-kotlin-kt1.1:1.5.0',
+            roomTesting  : "androidx.room:room-testing:${architectureComponents}",
+            retrofitMock : "com.squareup.retrofit2:retrofit-mock:${retrofitVersion}",
+            truth        : "com.google.truth:truth:0.42"
+        ]
+    ]
+}

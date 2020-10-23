@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+androidExtensions.experimental = true
 
 android {
     compileSdkVersion 30
@@ -25,13 +28,58 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation project(':base-di')
+    implementation project(':domain')
+    implementation project(':repository')
+    implementation project(':api')
 
+    // Kotlin stdlib
+    implementation libraries.app.kotlin
+
+    implementation libraries.app.androidxAppcompat
+    implementation libraries.app.androidxRecyclerview
+    implementation libraries.app.androidxCardview
+    implementation libraries.app.androidxConstraint
+    implementation libraries.app.androidxAnimations
+    implementation libraries.app.androidxLifecycle
+    implementation libraries.app.androidxGridlayout
+    implementation libraries.app.androidxMaterial
+
+    implementation libraries.app.dagger
+    kapt libraries.app.daggerCompiler
+    implementation libraries.app.daggerAndroid
+    implementation libraries.app.daggerAndroidSupport
+    kapt libraries.app.daggerAndroidCompiler
+
+    implementation libraries.app.room
+    implementation libraries.app.okhttp3
+    implementation libraries.app.okhttpLogging
+
+    implementation libraries.app.timber
+    implementation libraries.app.ultimateRecyclerview
+
+    implementation libraries.app.rxJava
+    implementation libraries.app.rxAndroid
+    implementation libraries.app.rxBindings
+    implementation libraries.app.rxBindingsKt
+    implementation libraries.app.retrofitRxAdapter
+    implementation libraries.app.retrofitConverter
+    implementation libraries.app.gson
+
+    implementation libraries.app.androidxKtCore
+
+    testImplementation libraries.test.mockitoKotlin
+
+    kaptAndroidTest libraries.app.daggerCompiler
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,41 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.novoda.build-properties'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.0"
+}
+
+dependencies {
+    implementation project(':repository')
+    implementation project(':domain')
+    implementation project(':database')
+    implementation project(':api')
+
+    implementation libraries.app.androidxAppcompat
+    implementation libraries.app.androidxMaterial
+
+    implementation libraries.app.dagger
+    kapt libraries.app.daggerCompiler
+
+    implementation libraries.app.rxJava
+    implementation libraries.app.rxAndroid
+    implementation libraries.app.retrofit
+    implementation libraries.app.retrofitRxAdapter
+    implementation libraries.app.okhttpLogging
+    implementation libraries.app.retrofitConverter
+
+    implementation libraries.app.gson
+
+    implementation libraries.app.kotlin
+    implementation libraries.app.glide
+    implementation libraries.app.timber
+
+    testImplementation libraries.test.junit4
+    testImplementation libraries.test.hamcrest
+    testImplementation libraries.test.mockitoKotlin
+    testImplementation libraries.test.retrofitMock
+    testImplementation libraries.test.truth
+}

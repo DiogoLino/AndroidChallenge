@@ -1,2 +1,8 @@
+include ':data-android'
+include ':database'
+include ':repository'
+include ':domain'
+include ':api'
+include ':base-di'
 include ':app'
 rootProject.name = "AndroidChallenge"
