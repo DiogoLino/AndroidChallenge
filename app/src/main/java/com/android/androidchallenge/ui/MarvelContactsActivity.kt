@@ -5,7 +5,7 @@ import com.android.androidchallenge.R
 import com.android.androidchallenge.di.inject
 import com.android.presentation.contacts.MarvelContactsPresenter
 import com.android.presentation.contacts.MarvelContactsView
-import com.android.repository.Heroes
+import com.android.repository.contacts.models.Heroes
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -31,7 +31,7 @@ class MarvelContactsActivity : BaseMarvelActivity(), MarvelContactsView {
         inject(this)
     }
 
-    override fun onHeroesLoaded(heroes: Heroes) {
+    override fun onHeroesLoaded(heroes: List<Heroes>) {
         Timber.d("HEROES",heroes)
     }
 

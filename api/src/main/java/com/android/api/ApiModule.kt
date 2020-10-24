@@ -1,5 +1,6 @@
 package com.android.api
 
+import com.android.api.contacts.AuthApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
