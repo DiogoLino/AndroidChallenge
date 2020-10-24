@@ -8,6 +8,10 @@ import com.android.database.MarvelDatabase
 import com.android.database.RoomModule
 import com.android.domain.PostExecutionThread
 import com.android.repository.RepositoryModule
+import com.android.repository.contacts.HeroContactsRepository
+import com.android.repository.contacts.data_source.HeroContactsApiDataSource
+import com.android.repository.contacts.data_source.HeroContactsDbDataSource
+import com.google.gson.Gson
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -30,6 +34,10 @@ interface AppComponent : BaseComponent {
     val marvelDatabase: MarvelDatabase
     val postExecutionThread: PostExecutionThread
     val context: Context
+    val gson: Gson
+    val heroContactsApiDataSource: HeroContactsApiDataSource
+    val heroContactsDbDataSource: HeroContactsDbDataSource
+    val heroesContactsRepository: HeroContactsRepository
 
     @Component.Builder
     interface Builder {

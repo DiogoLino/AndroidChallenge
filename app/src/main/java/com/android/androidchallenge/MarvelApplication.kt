@@ -12,7 +12,7 @@ import java.util.*
 /**
  * Android Application.
  */
-abstract class MarvelApplication : Application(), HasAndroidInjector, ComponentProvider,
+class MarvelApplication : Application(), HasAndroidInjector, ComponentProvider,
     OkHttpProvider {
 
     private lateinit var dispatchingInjector: DispatchingAndroidInjector<Any>
@@ -74,5 +74,4 @@ abstract class MarvelApplication : Application(), HasAndroidInjector, ComponentP
         ApplicationSubscriptionHolder.unsubscribe()
         super.onTerminate()
     }
-
 }

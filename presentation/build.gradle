@@ -1,0 +1,28 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.0"
+}
+
+dependencies {
+    implementation project(':domain')
+    implementation project(':repository')
+
+    implementation libraries.app.kotlin
+
+    implementation libraries.app.androidxAnnotations
+    implementation libraries.app.dagger
+    kapt libraries.app.daggerCompiler
+    implementation libraries.app.timber
+
+    implementation libraries.app.timber
+    implementation libraries.app.rxJava
+
+    // Junit 4 and 5
+    testImplementation libraries.test.hamcrest
+    testImplementation libraries.test.junit4
+    testImplementation libraries.test.mockitoKotlin
+}

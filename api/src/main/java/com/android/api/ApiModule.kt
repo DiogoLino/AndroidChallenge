@@ -1,8 +1,11 @@
 package com.android.api
 
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import okhttp3.HttpUrl
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,11 +14,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+
 private const val FIFTEEN = 15L
 private const val TWENTY = 20L
 
+const val API_BASE_URL = "https://gateway.marvel.com/v1/public/"
+
 @Module
 open class ApiModule {
+
+    private val authApi: AuthApi = AuthApi()
 
     @Provides
     fun provideLogInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
@@ -31,6 +39,7 @@ open class ApiModule {
     @Provides
     @Singleton
     fun client(
+        requestInterceptor: Interceptor,
         loggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
@@ -38,6 +47,7 @@ open class ApiModule {
             .readTimeout(TWENTY, TimeUnit.SECONDS)
             .writeTimeout(FIFTEEN, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(requestInterceptor)
             .build()
     }
 
@@ -50,15 +60,49 @@ open class ApiModule {
     @Provides
     @Singleton
     fun provideRestAdapter(
-        endpoint: String,
         factory: GsonConverterFactory,
         client: OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(endpoint)
+            .baseUrl(API_BASE_URL)
             .client(client)
             .addConverterFactory(factory)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
     }
+
+    @Provides
+    fun provideRequestInterceptor(): Interceptor {
+        return Interceptor { chain: Interceptor.Chain ->
+            val url = buildUrlFrom(chain)
+            val request = chain.request()
+                .newBuilder()
+                .url(url)
+                .build()
+            chain.proceed(request)
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideGson(): Gson {
+        return GsonBuilder()
+            .setLenient()
+            .create()
+
+    }
+
+    protected open fun buildUrlFrom(chain: Interceptor.Chain): HttpUrl {
+        return buildQueryParameters(chain).build()
+    }
+
+    private fun buildQueryParameters(chain: Interceptor.Chain): HttpUrl.Builder {
+        return chain.request()
+            .url
+            .newBuilder()
+            .addQueryParameter("ts", authApi.timeStamp)
+            .addQueryParameter("apikey", authApi.publicKey)
+            .addQueryParameter("hash", authApi.md5Key)
+    }
 }
+

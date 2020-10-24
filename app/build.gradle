@@ -32,6 +32,9 @@ dependencies {
     implementation project(':domain')
     implementation project(':repository')
     implementation project(':api')
+    implementation project(':presentation')
+    implementation project(':database')
+    implementation project(':data-android')
 
     // Kotlin stdlib
     implementation libraries.app.kotlin

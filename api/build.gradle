@@ -2,9 +2,21 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
@@ -27,7 +39,6 @@ dependencies {
     implementation libraries.app.rxAndroid
 
     testImplementation libraries.test.junit4
-    testImplementation libraries.test.truth
     testImplementation libraries.test.mockitoKotlin
     testImplementation libraries.test.truth
     testImplementation libraries.test.retrofitMock
