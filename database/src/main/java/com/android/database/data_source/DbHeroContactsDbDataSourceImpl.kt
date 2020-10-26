@@ -5,7 +5,7 @@ import com.android.database.mapper.toDomain
 import com.android.database.mapper.toEntity
 import com.android.repository.contacts.data_source.HeroContactsDbDataSource
 import com.android.repository.contacts.models.Hero
-import io.reactivex.Observable
+import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -22,14 +22,14 @@ class DbHeroContactsDbDataSourceImpl @Inject constructor(
         return heroesDao.loadHeroes(offset).map { heroes -> heroes.map { it.toDomain() } }
     }
 
-
-    override fun deleteHero() {
-
+    override fun removeHeroFromSquad(uiHero: Hero): Completable {
+        uiHero.squadMember = false
+        return heroesDao.updateHero(uiHero.toEntity())
     }
 
-    override fun addHeroToSquad() {
-
+    override fun addHeroToSquad(uiHero: Hero): Completable {
+        uiHero.squadMember = true
+        return heroesDao.updateHero(uiHero.toEntity())
     }
-
 
 }

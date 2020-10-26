@@ -3,6 +3,7 @@ package com.android.repository.contacts
 import com.android.repository.contacts.data_source.HeroContactsApiDataSource
 import com.android.repository.contacts.data_source.HeroContactsDbDataSource
 import com.android.repository.contacts.models.Hero
+import io.reactivex.Completable
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -27,6 +28,14 @@ class HeroContactsRepository @Inject constructor(
     private fun loadFromDb(offset: Int): Observable<List<Hero>> {
         return heroContactsDbDataSource.loadHeroes(offset)
             .toObservable()
+    }
+
+    fun removeHeroFromSquad(hero: Hero) : Completable {
+        return heroContactsDbDataSource.removeHeroFromSquad(hero)
+    }
+
+    fun addHeroToSquad(hero: Hero) : Completable{
+       return heroContactsDbDataSource.addHeroToSquad(hero)
     }
 
 

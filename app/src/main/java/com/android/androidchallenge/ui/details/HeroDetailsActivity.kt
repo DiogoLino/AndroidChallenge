@@ -12,12 +12,16 @@ import com.android.androidchallenge.utils.STANDARD_FANTASTIC
 import com.android.imageloader.ImageLoader
 import com.android.presentation.contacts.UiHero
 import com.android.presentation.details.HeroContactDetailsView
+import com.android.presentation.details.HeroDetailPresenter
 import javax.inject.Inject
 
 class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
 
     @Inject
     lateinit var imageLoader: ImageLoader
+
+    @Inject
+    lateinit var presenter: HeroDetailPresenter
 
     private lateinit var heroPoster: ImageView
     private lateinit var heroName: TextView
@@ -26,7 +30,6 @@ class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
     private lateinit var deleteButton: Button
 
     private val uiHero: UiHero by lazy { intent.getParcelableExtra<UiHero>(HERO_ARGS_KEY) as UiHero }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +53,15 @@ class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
         )
         heroName.text = uiHero.name
         heroDescription.text = uiHero.description
+
+        if (uiHero.squadMember) {
+            addButton.visible()
+            deleteButton.gone()
+        } else {
+            deleteButton.visible()
+            addButton.gone()
+        }
+
     }
 
     override fun setContentView() {
@@ -60,12 +72,12 @@ class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
         inject(this)
     }
 
-    override fun onSquadMemberDeleted(heroes: List<UiHero>) {
-
+    override fun onSquadMemberRemoved() {
+        // change button
     }
 
-    override fun onSquadMemberAdded(heroes: List<UiHero>) {
-
+    override fun onSquadMemberAdded() {
+        // change button
     }
 
 

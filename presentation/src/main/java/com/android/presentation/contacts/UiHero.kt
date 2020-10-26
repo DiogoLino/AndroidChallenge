@@ -1,6 +1,8 @@
 package com.android.presentation.contacts
 
 import android.os.Parcelable
+import com.android.repository.contacts.models.Hero
+import com.android.repository.contacts.models.HeroThumbnail
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -27,4 +29,18 @@ data class UiHero(
         } else this
 
 }
+
+fun UiHero.toDomain() = Hero(
+    id = id,
+    name = name,
+    description = description,
+    thumbnailPath = thumbnailPath.toDomain(),
+    offset = offset,
+    squadMember = squadMember
+)
+
+private fun UiHeroThumbnail.toDomain() = HeroThumbnail(
+    path = path,
+    extension = extension
+)
 

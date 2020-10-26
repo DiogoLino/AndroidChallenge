@@ -7,6 +7,6 @@ data class Hero(
     val description: String,
     val thumbnailPath: HeroThumbnail,
     val offset: Int,
-    val squadMember: Boolean = false,
+    var squadMember: Boolean = false,
     val shouldShowSquad: Boolean = false
 )
