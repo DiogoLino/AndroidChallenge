@@ -3,7 +3,7 @@ package com.android.database
 import android.content.Context
 import android.os.Debug
 import androidx.room.Room
-import com.android.database.dao.UserDao
+import com.android.database.dao.HeroesDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -30,8 +30,8 @@ class RoomModule {
 
     @Provides
     @Singleton
-    fun provideUserDao(db: MarvelDatabase): UserDao {
-        return db.userDao()
+    fun provideUserDao(db: MarvelDatabase): HeroesDao {
+        return db.heroesDao()
     }
 
 }

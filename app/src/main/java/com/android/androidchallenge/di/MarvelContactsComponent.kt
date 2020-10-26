@@ -1,6 +1,6 @@
 package com.android.androidchallenge.di
 
-import com.android.androidchallenge.ui.MarvelContactsActivity
+import com.android.androidchallenge.ui.home.MarvelContactsActivity
 import com.android.base_di.ActivityComponent
 import com.android.base_di.AppComponent
 import com.android.base_di.appComponent

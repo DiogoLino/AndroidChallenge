@@ -2,18 +2,18 @@ package com.android.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.android.database.dao.UserDao
-import com.android.database.model.entities.UserEntity
+import com.android.database.dao.HeroesDao
+import com.android.database.model.entities.HeroesEntity
 
 const val DATABASE_VERSION = 1
 
 @Database(
     version = DATABASE_VERSION,
     entities = [
-        UserEntity::class
+        HeroesEntity::class
     ]
 )
 
 abstract class MarvelDatabase : RoomDatabase() {
-    abstract fun userDao(): UserDao
+    abstract fun heroesDao(): HeroesDao
 }

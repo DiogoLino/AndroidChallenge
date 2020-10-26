@@ -1,4 +1,4 @@
-package com.android.androidchallenge.ui
+package com.android.androidchallenge.ui.adapters
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
