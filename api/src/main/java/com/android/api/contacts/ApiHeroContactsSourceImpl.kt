@@ -12,9 +12,9 @@ class ApiHeroContactsSourceImpl @Inject constructor(
 ) : HeroContactsApiDataSource {
 
     override fun loadHeroes(offset: Int): Observable<List<Hero>> {
-        return apiService.loadHeroes()
+        return apiService.loadHeroes(offset)
             .map { apiBaseMarvel ->
-                apiBaseMarvel.data.apiHeroes.map { it.toDomain() }
+                apiBaseMarvel.data.apiHeroes.map { it.toDomain(apiBaseMarvel.data.offset) }
             }
     }
 }

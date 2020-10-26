@@ -2,6 +2,7 @@ package com.android.presentation.contacts
 
 import com.android.domain.BaseObservableObserver
 import com.android.repository.contacts.models.Hero
+import com.android.repository.contacts.models.HeroThumbnail
 
 class MarvelContactsObserver(
     private val heroesView: MarvelContactsView
@@ -24,6 +25,11 @@ fun Hero.toUi() = UiHero(
     name = name,
     description = description,
     offset = offset,
-    thumbnailPath = thumbnailPath,
+    thumbnailPath = thumbnailPath.toUi(),
     squadMember = squadMember
+)
+
+fun HeroThumbnail.toUi() = UiHeroThumbnail(
+    path = path,
+    extension = extension
 )

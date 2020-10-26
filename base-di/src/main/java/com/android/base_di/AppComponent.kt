@@ -7,6 +7,8 @@ import com.android.data_android.DataModule
 import com.android.database.MarvelDatabase
 import com.android.database.RoomModule
 import com.android.domain.PostExecutionThread
+import com.android.imageloader.ImageLoader
+import com.android.imageloader.ImageLoaderModule
 import com.android.repository.RepositoryModule
 import com.android.repository.contacts.HeroContactsRepository
 import com.android.repository.contacts.data_source.HeroContactsApiDataSource
@@ -24,7 +26,8 @@ import javax.inject.Singleton
         ApiModule::class,
         RoomModule::class,
         RepositoryModule::class,
-        DataModule::class
+        DataModule::class,
+        ImageLoaderModule::class
     ]
 )
 @Singleton
@@ -38,6 +41,7 @@ interface AppComponent : BaseComponent {
     val heroContactsApiDataSource: HeroContactsApiDataSource
     val heroContactsDbDataSource: HeroContactsDbDataSource
     val heroesContactsRepository: HeroContactsRepository
+    val imageLoader: ImageLoader
 
     @Component.Builder
     interface Builder {

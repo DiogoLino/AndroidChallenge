@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AndroidChallenge</string>
+
+
+    <string name="squad_title">My Squad</string>
+
+
 </resources>

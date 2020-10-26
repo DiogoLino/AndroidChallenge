@@ -1,4 +1,4 @@
-package com.android.androidchallenge
+package com.android.imageloader
 
 import okhttp3.OkHttpClient
 

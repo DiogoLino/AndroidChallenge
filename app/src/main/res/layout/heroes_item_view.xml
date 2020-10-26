@@ -9,7 +9,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <com.android.androidchallenge.views.CircleImageView
@@ -26,6 +27,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
+            android:textStyle="bold"
+            android:textColor="@color/black_compact"
             tools:text="SuperMan" />
 
     </LinearLayout>
@@ -34,8 +37,8 @@
         android:id="@+id/dividerView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_item_separator_1dp"
-        android:layout_marginStart="30dp"
-        android:background="@color/colorAccent" />
+        android:layout_marginStart="50dp"
+        android:background="@color/lightGrey" />
 
 </LinearLayout>
 

@@ -2,17 +2,20 @@ package com.android.androidchallenge.ui.adapters
 
 import android.content.Context
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.android.androidchallenge.R
-import com.android.androidchallenge.ui.RecyclerViewBaseAdapter
-import com.android.repository.contacts.models.Hero
+import com.android.androidchallenge.utils.STANDARD
+import com.android.androidchallenge.views.CircleImageView
+import com.android.imageloader.ImageLoader
+import com.android.presentation.contacts.UiHero
 
 class HeroesAdapter(
     context: Context,
-    items: List<Hero>,
-    private val onItemClickedAction: ((Hero) -> Unit)? = null
-) : RecyclerViewBaseAdapter<Hero, Context, HeroesAdapter.HeroesViewHolder>(context, items) {
+    items: List<UiHero>,
+    val imageLoader: ImageLoader,
+    private val onItemClickedAction: ((UiHero) -> Unit)? = null
+) : RecyclerViewBaseAdapter<UiHero, Context, HeroesAdapter.HeroesViewHolder>(context, items) {
 
     override fun getItemLayoutResId(): Int = R.layout.heroes_item_view
 
@@ -20,22 +23,23 @@ class HeroesAdapter(
         HeroesViewHolder(context, view)
 
     inner class HeroesViewHolder(context: Context, view: View) :
-        RecyclerViewBaseAdapter.RecyclerViewBaseViewHolder<Hero, Context>(
+        RecyclerViewBaseAdapter.RecyclerViewBaseViewHolder<UiHero, Context>(
             context,
             view
         ) {
 
         private val name = itemView.findViewById<TextView>(R.id.name)
-        private val avatar = itemView.findViewById<ConstraintLayout>(R.id.root_view)
-        private val rootView = itemView.findViewById<ConstraintLayout>(R.id.root_view)
+        private val avatar = itemView.findViewById<CircleImageView>(R.id.avatar)
+        private val rootView = itemView.findViewById<LinearLayout>(R.id.root_view)
 
-        override fun bind(item: Hero, position: Int) {
+        override fun bind(item: UiHero, position: Int) {
             name.text = item.name
-            // avatar.setImageResource(item.iconRes)
+
+            imageLoader.load(item.getThumbnail(STANDARD), avatar, R.drawable.user_avatar_placeholder)
             rootView.setOnClickListener { onItemClickedAction(item) }
         }
 
-        private fun onItemClickedAction(item: Hero) {
+        private fun onItemClickedAction(item: UiHero) {
             onItemClickedAction?.invoke(item)
         }
 

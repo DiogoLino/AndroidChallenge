@@ -1,5 +1,6 @@
-package com.android.androidchallenge
+package com.android.androidchallenge.di
 
+import com.android.androidchallenge.MarvelApplication
 import com.android.base_di.AppComponent
 import com.android.base_di.FeatureComponent
 import dagger.Component

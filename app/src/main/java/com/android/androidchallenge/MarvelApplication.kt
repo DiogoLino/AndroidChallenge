@@ -1,6 +1,9 @@
 package com.android.androidchallenge
 
 import android.app.Application
+import com.android.androidchallenge.di.DaggerMainModuleComponent
+import com.android.androidchallenge.di.MainModuleComponent
+import com.android.androidchallenge.di.merge
 import com.android.base_di.*
 import com.android.domain.ApplicationSubscriptionHolder
 import dagger.android.AndroidInjector
@@ -13,7 +16,7 @@ import java.util.*
  * Android Application.
  */
 class MarvelApplication : Application(), HasAndroidInjector, ComponentProvider,
-    OkHttpProvider {
+    com.android.imageloader.OkHttpProvider {
 
     private lateinit var dispatchingInjector: DispatchingAndroidInjector<Any>
     lateinit var componentMap: MutableMap<Class<out BaseComponent>, BaseComponent>

@@ -35,6 +35,7 @@ dependencies {
     implementation project(':presentation')
     implementation project(':database')
     implementation project(':data-android')
+    implementation project(':imageloader')
 
     // Kotlin stdlib
     implementation libraries.app.kotlin

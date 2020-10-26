@@ -16,6 +16,7 @@ dependencies {
     implementation project(':api')
     implementation project(':database')
     implementation project(':data-android')
+    implementation project(':imageloader')
 
     implementation libraries.app.androidxAppcompat
     implementation libraries.app.kotlin

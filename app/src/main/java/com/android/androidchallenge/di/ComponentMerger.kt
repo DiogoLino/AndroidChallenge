@@ -1,6 +1,6 @@
 @file:JvmName("ComponentMerger")
 
-package com.android.androidchallenge
+package com.android.androidchallenge.di
 
 import com.android.base_di.FeatureComponent
 import dagger.android.DispatchingAndroidInjector

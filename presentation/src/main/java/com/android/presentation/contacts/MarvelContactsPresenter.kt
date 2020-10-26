@@ -1,22 +1,21 @@
 package com.android.presentation.contacts
 
 import com.android.domain.MarvelCompositeSubscription
-import com.android.domain.contacts.HeroContactsUseCase
+import com.android.domain.contacts.LoadHeroesUseCase
 import com.android.presentation.BasePresenter
-import com.android.domain.BaseInteractionArgument
 import javax.inject.Inject
 
 class MarvelContactsPresenter @Inject constructor(
     marvelCompositeSubscription: MarvelCompositeSubscription,
     private val view: MarvelContactsView,
-    private val heroContactsUseCase: HeroContactsUseCase
+    private val loadHeroesUseCase: LoadHeroesUseCase
 ) : BasePresenter(marvelCompositeSubscription) {
 
     fun loadHeroContacts() {
         addSubscription(
-            heroContactsUseCase.execute(
+            loadHeroesUseCase.execute(
                 MarvelContactsObserver(view),
-                BaseInteractionArgument()
+                LoadHeroesUseCase.InteractionArgument(2)
             )
         )
     }

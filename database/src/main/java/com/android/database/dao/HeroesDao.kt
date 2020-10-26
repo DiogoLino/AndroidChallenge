@@ -3,6 +3,7 @@ package com.android.database.dao
 import androidx.room.*
 import com.android.database.model.HEROES_DB
 import com.android.database.model.entities.HeroesEntity
+import io.reactivex.Observable
 import io.reactivex.Single
 
 @Dao
