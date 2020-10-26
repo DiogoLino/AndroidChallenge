@@ -1,5 +1,6 @@
 package com.android.androidchallenge.ui.home
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
@@ -72,7 +73,6 @@ class HeroesActivity : BaseMarvelActivity(), MarvelContactsView {
             layoutManager = LinearLayoutManager(this@HeroesActivity)
             adapter = heroesAdapter
         }
-
     }
 
     fun initSquadAdapter(heroes: List<UiHero>) {
@@ -81,6 +81,13 @@ class HeroesActivity : BaseMarvelActivity(), MarvelContactsView {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == HERO_ACTIVITY_REQUEST_CODE) {
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    presenter.loadHeroContacts()
+                }
+            }
+        }
     }
 
 

@@ -11,7 +11,7 @@ import io.reactivex.Single
 abstract class HeroesDao {
 
     @Update
-    abstract fun updateHero(entity: HeroesEntity) : Completable
+    abstract fun updateHero(entity: HeroesEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun addHeroToSquad(entity: HeroesEntity)

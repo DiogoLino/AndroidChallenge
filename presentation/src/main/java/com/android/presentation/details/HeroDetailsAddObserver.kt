@@ -9,7 +9,7 @@ class HeroDetailsAddObserver(
 
     override fun onComplete() {
         super.onComplete()
-        detailsView.onSquadMemberRemoved()
+        detailsView.onSquadMemberAdded()
     }
 
 

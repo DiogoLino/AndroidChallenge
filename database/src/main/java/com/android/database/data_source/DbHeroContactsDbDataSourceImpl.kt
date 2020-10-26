@@ -22,12 +22,12 @@ class DbHeroContactsDbDataSourceImpl @Inject constructor(
         return heroesDao.loadHeroes(offset).map { heroes -> heroes.map { it.toDomain() } }
     }
 
-    override fun removeHeroFromSquad(uiHero: Hero): Completable {
+    override fun removeHeroFromSquad(uiHero: Hero) {
         uiHero.squadMember = false
         return heroesDao.updateHero(uiHero.toEntity())
     }
 
-    override fun addHeroToSquad(uiHero: Hero): Completable {
+    override fun addHeroToSquad(uiHero: Hero) {
         uiHero.squadMember = true
         return heroesDao.updateHero(uiHero.toEntity())
     }

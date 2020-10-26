@@ -6,11 +6,9 @@ class HeroDetailsRemoveObserver(
     private val detailsView: HeroContactDetailsView
 ) : BaseCompletableObserver() {
 
-
     override fun onComplete() {
         super.onComplete()
         detailsView.onSquadMemberRemoved()
     }
-
 
 }

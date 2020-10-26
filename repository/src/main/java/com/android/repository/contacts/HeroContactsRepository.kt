@@ -30,12 +30,12 @@ class HeroContactsRepository @Inject constructor(
             .toObservable()
     }
 
-    fun removeHeroFromSquad(hero: Hero) : Completable {
-        return heroContactsDbDataSource.removeHeroFromSquad(hero)
+    fun removeHeroFromSquad(hero: Hero): Completable {
+        return Completable.fromAction { heroContactsDbDataSource.removeHeroFromSquad(hero) }
     }
 
-    fun addHeroToSquad(hero: Hero) : Completable{
-       return heroContactsDbDataSource.addHeroToSquad(hero)
+    fun addHeroToSquad(hero: Hero): Completable {
+        return Completable.fromAction { heroContactsDbDataSource.addHeroToSquad(hero) }
     }
 
 

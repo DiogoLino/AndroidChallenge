@@ -26,28 +26,13 @@
             android:textStyle="bold"
             tools:text="Superman" />
 
-        <RelativeLayout
+        <Button
+            android:id="@+id/addButton"
+            style="@style/SelectableButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/addButton"
-                style="@style/RedButton"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/delete_button"
-                style="@style/PurpleButton"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp" />
-
-        </RelativeLayout>
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp" />
 
 
         <TextView

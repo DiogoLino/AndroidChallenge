@@ -1,5 +1,6 @@
 package com.android.androidchallenge.ui.details
 
+import android.app.Activity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
@@ -7,6 +8,7 @@ import android.widget.TextView
 import com.android.androidchallenge.R
 import com.android.androidchallenge.di.inject
 import com.android.androidchallenge.ui.adapters.BaseMarvelActivity
+import com.android.androidchallenge.ui.dialog.DetailsDialog
 import com.android.androidchallenge.ui.home.HERO_ARGS_KEY
 import com.android.androidchallenge.utils.STANDARD_FANTASTIC
 import com.android.imageloader.ImageLoader
@@ -27,8 +29,7 @@ class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
     private lateinit var heroName: TextView
     private lateinit var heroDescription: TextView
     private lateinit var addButton: Button
-    private lateinit var deleteButton: Button
-
+    private lateinit var dialog: DetailsDialog
     private val uiHero: UiHero by lazy { intent.getParcelableExtra<UiHero>(HERO_ARGS_KEY) as UiHero }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +43,6 @@ class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
         heroName = findViewById(R.id.hero_name)
         heroDescription = findViewById(R.id.hero_description)
         addButton = findViewById(R.id.addButton)
-        deleteButton = findViewById(R.id.delete_button)
     }
 
     private fun populateViews() {
@@ -53,15 +53,9 @@ class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
         )
         heroName.text = uiHero.name
         heroDescription.text = uiHero.description
-
-        if (uiHero.squadMember) {
-            addButton.visible()
-            deleteButton.gone()
-        } else {
-            deleteButton.visible()
-            addButton.gone()
-        }
-
+        addButton.isSelected = !uiHero.squadMember
+        dialog = DetailsDialog.newInstance(uiHero.name) { presenter.removeHeroFromSquad(uiHero) }
+        addButton.setOnClickListener { performButtonAction() }
     }
 
     override fun setContentView() {
@@ -73,12 +67,24 @@ class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
     }
 
     override fun onSquadMemberRemoved() {
-        // change button
+        updateButton()
     }
 
     override fun onSquadMemberAdded() {
-        // change button
+        updateButton()
     }
 
+    private fun performButtonAction() {
+        if (addButton.isSelected) {
+            presenter.addHeroToSquad(uiHero)
+        } else {
+            dialog.show(supportFragmentManager, "detail_Dialog")
+        }
+    }
+
+    private fun updateButton() {
+        setResult(Activity.RESULT_OK)
+        addButton.isSelected = !addButton.isSelected
+    }
 
 }

@@ -8,6 +8,6 @@ interface HeroContactsDbDataSource {
 
     fun saveHeroes(heroes: List<Hero>)
     fun loadHeroes(offset: Int): Single<List<Hero>>
-    fun removeHeroFromSquad(uiHero: Hero) : Completable
-    fun addHeroToSquad(uiHero: Hero) : Completable
+    fun removeHeroFromSquad(uiHero: Hero)
+    fun addHeroToSquad(uiHero: Hero)
 }
