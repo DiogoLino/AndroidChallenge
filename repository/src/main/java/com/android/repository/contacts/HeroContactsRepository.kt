@@ -18,8 +18,10 @@ class HeroContactsRepository @Inject constructor(
             .filter { list -> list.isNotEmpty() }
             .switchIfEmpty(
                 loadFromApi(offset)
-            ).doOnNext { heroContactsDbDataSource.saveHeroes(it) }
+                    .doOnNext { heroContactsDbDataSource.saveHeroes(it) }
+            )
     }
+
 
     private fun loadFromApi(offset: Int): Observable<List<Hero>> {
         return heroContactsApiDataSource.loadHeroes(offset)
@@ -29,6 +31,12 @@ class HeroContactsRepository @Inject constructor(
         return heroContactsDbDataSource.loadHeroes(offset)
             .toObservable()
     }
+
+    fun loadSquad(): Observable<List<Hero>> {
+        return heroContactsDbDataSource.loadSquad()
+            .toObservable()
+    }
+
 
     fun removeHeroFromSquad(hero: Hero): Completable {
         return Completable.fromAction { heroContactsDbDataSource.removeHeroFromSquad(hero) }

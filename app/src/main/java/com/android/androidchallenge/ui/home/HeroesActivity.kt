@@ -4,13 +4,18 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.androidchallenge.R
 import com.android.androidchallenge.di.inject
 import com.android.androidchallenge.ui.adapters.BaseMarvelActivity
+import com.android.androidchallenge.ui.adapters.EndlessRecyclerViewScrollListener
 import com.android.androidchallenge.ui.adapters.HeroesAdapter
+import com.android.androidchallenge.ui.adapters.SquadAdapter
 import com.android.androidchallenge.ui.details.HeroDetailsActivity
+import com.android.androidchallenge.utils.gone
+import com.android.androidchallenge.utils.visible
 import com.android.imageloader.ImageLoader
 import com.android.presentation.contacts.MarvelContactsPresenter
 import com.android.presentation.contacts.MarvelContactsView
@@ -19,6 +24,9 @@ import javax.inject.Inject
 
 const val HERO_ARGS_KEY = "hero_args_key"
 const val HERO_ACTIVITY_REQUEST_CODE = 105
+
+const val VISIBLE_THRESHOLD = 20
+const val FIRST_PAGE = 0
 
 class HeroesActivity : BaseMarvelActivity(), MarvelContactsView {
 
@@ -31,18 +39,25 @@ class HeroesActivity : BaseMarvelActivity(), MarvelContactsView {
     private lateinit var heroesRecyclerView: RecyclerView
     private lateinit var squadRecyclerView: RecyclerView
     private lateinit var squadContainer: LinearLayout
-    private lateinit var heroesAdapter: HeroesAdapter
+    private lateinit var loadingView: ProgressBar
+    private var heroesAdapter: HeroesAdapter? = null
+    private var squadAdapter: SquadAdapter? = null
+    private lateinit var scrollListener: EndlessRecyclerViewScrollListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initView()
+        initHeroesAdapter()
+        initHeroRecycler()
         loadHeroContacts()
+        loadSquad()
     }
 
     private fun initView() {
         heroesRecyclerView = findViewById(R.id.heroes_recycler_view)
         squadRecyclerView = findViewById(R.id.squad_recycler_view)
         squadContainer = findViewById(R.id.squad_container)
+        loadingView = findViewById(R.id.loading_view)
     }
 
     override fun onDestroy() {
@@ -51,7 +66,11 @@ class HeroesActivity : BaseMarvelActivity(), MarvelContactsView {
     }
 
     private fun loadHeroContacts() {
-        presenter.loadHeroContacts()
+        presenter.loadHeroContacts(FIRST_PAGE)
+    }
+
+    private fun loadSquad() {
+        presenter.loadSquad()
     }
 
     override fun setContentView() {
@@ -66,17 +85,48 @@ class HeroesActivity : BaseMarvelActivity(), MarvelContactsView {
         populateViews(heroes)
     }
 
-    private fun populateViews(heroes: List<UiHero>) {
+    override fun onSquadLoaded(heroes: List<UiHero>) {
         //check if needs to show squad
-        initHeroesAdapter(heroes)
-        heroesRecyclerView.apply {
-            layoutManager = LinearLayoutManager(this@HeroesActivity)
-            adapter = heroesAdapter
+        if (heroes.isNotEmpty()) {
+            populateSquad(heroes)
         }
     }
 
-    fun initSquadAdapter(heroes: List<UiHero>) {
+    private fun populateViews(heroes: List<UiHero>) {
+        heroesAdapter?.addHeroes(heroes)
+    }
 
+    private fun populateSquad(heroes: List<UiHero>) {
+        squadContainer.visible()
+        squadAdapter = SquadAdapter(this, heroes, imageLoader) { onHeroClicked(it) }
+        squadRecyclerView.apply {
+            adapter = squadAdapter
+            layoutManager =
+                LinearLayoutManager(this@HeroesActivity, LinearLayoutManager.HORIZONTAL, false)
+        }
+    }
+
+    private fun initHeroRecycler() {
+        val heroRecyclerLayoutManager = LinearLayoutManager(this@HeroesActivity)
+
+        heroesRecyclerView.apply {
+            adapter = heroesAdapter
+            layoutManager = heroRecyclerLayoutManager
+        }
+        scrollListener = object : EndlessRecyclerViewScrollListener(
+            heroRecyclerLayoutManager, VISIBLE_THRESHOLD
+        ) {
+            override fun onLoadMore(
+                page: Int,
+                totalItemsCount: Int,
+                view: RecyclerView?
+            ) {
+                if (shouldLoadMore(page)) {
+                    requestNextPage(page)
+                }
+            }
+        }
+        heroesRecyclerView.addOnScrollListener(scrollListener)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -84,15 +134,30 @@ class HeroesActivity : BaseMarvelActivity(), MarvelContactsView {
         if (requestCode == HERO_ACTIVITY_REQUEST_CODE) {
             when (resultCode) {
                 Activity.RESULT_OK -> {
-                    presenter.loadHeroContacts()
+                    refreshPage()
+                    scrollListener.resetState()
                 }
             }
         }
     }
 
+    private fun refreshPage() {
+        heroesAdapter?.refreshAdapter()
+        presenter.loadHeroContacts(FIRST_PAGE)
+        presenter.loadSquad()
+    }
 
-    private fun initHeroesAdapter(heroes: List<UiHero>) {
-        heroesAdapter = HeroesAdapter(this, heroes, imageLoader) { onHeroClicked(it) }
+    fun shouldLoadMore(page: Int): Boolean {
+        return page != FIRST_PAGE
+    }
+
+    fun requestNextPage(page: Int) {
+        presenter.loadHeroContacts(page)
+    }
+
+
+    private fun initHeroesAdapter() {
+        heroesAdapter = HeroesAdapter(imageLoader) { onHeroClicked(it) }
     }
 
     private fun onHeroClicked(hero: UiHero) {
@@ -102,10 +167,10 @@ class HeroesActivity : BaseMarvelActivity(), MarvelContactsView {
     }
 
     override fun hideLoading() {
-
+        loadingView.gone()
     }
 
     override fun showLoading() {
-
+        loadingView.visible()
     }
 }

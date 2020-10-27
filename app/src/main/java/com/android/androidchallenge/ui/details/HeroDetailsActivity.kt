@@ -5,12 +5,13 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import com.android.androidchallenge.R
 import com.android.androidchallenge.di.inject
 import com.android.androidchallenge.ui.adapters.BaseMarvelActivity
 import com.android.androidchallenge.ui.dialog.DetailsDialog
 import com.android.androidchallenge.ui.home.HERO_ARGS_KEY
-import com.android.androidchallenge.utils.STANDARD_FANTASTIC
+import com.android.androidchallenge.utils.*
 import com.android.imageloader.ImageLoader
 import com.android.presentation.contacts.UiHero
 import com.android.presentation.details.HeroContactDetailsView
@@ -29,11 +30,14 @@ class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
     private lateinit var heroName: TextView
     private lateinit var heroDescription: TextView
     private lateinit var addButton: Button
+    private lateinit var removeButton: Button
     private lateinit var dialog: DetailsDialog
+    private var showSquadMemberButton: Boolean = false
     private val uiHero: UiHero by lazy { intent.getParcelableExtra<UiHero>(HERO_ARGS_KEY) as UiHero }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        initToolbar()
         initViews()
         populateViews()
     }
@@ -43,9 +47,11 @@ class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
         heroName = findViewById(R.id.hero_name)
         heroDescription = findViewById(R.id.hero_description)
         addButton = findViewById(R.id.addButton)
+        removeButton = findViewById(R.id.removeButton)
     }
 
     private fun populateViews() {
+        showSquadMemberButton = uiHero.squadMember
         imageLoader.load(
             uiHero.getThumbnail(STANDARD_FANTASTIC),
             heroPoster,
@@ -53,9 +59,21 @@ class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
         )
         heroName.text = uiHero.name
         heroDescription.text = uiHero.description
-        addButton.isSelected = !uiHero.squadMember
+        removeButton.text = getString(R.string.remove_button_text, getEmoji(FIRE_EMOJI))
+        addButton.text = getString(R.string.add_button_text, getEmoji(FLEX_EMOJI))
+        updateButton()
         dialog = DetailsDialog.newInstance(uiHero.name) { presenter.removeHeroFromSquad(uiHero) }
-        addButton.setOnClickListener { performButtonAction() }
+        addButton.setOnClickListener { presenter.addHeroToSquad(uiHero) }
+        removeButton.setOnClickListener { dialog.show(supportFragmentManager, "detail_Dialog") }
+    }
+
+    private fun initToolbar() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.title = null
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun setContentView() {
@@ -67,24 +85,25 @@ class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
     }
 
     override fun onSquadMemberRemoved() {
+        showSquadMemberButton = false
         updateButton()
+        setResult(Activity.RESULT_OK)
     }
 
     override fun onSquadMemberAdded() {
+        showSquadMemberButton = true
         updateButton()
-    }
-
-    private fun performButtonAction() {
-        if (addButton.isSelected) {
-            presenter.addHeroToSquad(uiHero)
-        } else {
-            dialog.show(supportFragmentManager, "detail_Dialog")
-        }
+        setResult(Activity.RESULT_OK)
     }
 
     private fun updateButton() {
-        setResult(Activity.RESULT_OK)
-        addButton.isSelected = !addButton.isSelected
+        if (showSquadMemberButton) {
+            removeButton.visible()
+            addButton.gone()
+        } else {
+            addButton.visible()
+            removeButton.gone()
+        }
     }
 
 }

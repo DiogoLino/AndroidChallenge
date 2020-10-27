@@ -8,16 +8,12 @@ import com.android.repository.contacts.models.Hero
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class LoadHeroesUseCase @Inject constructor(
+class LoadSquadUseCase @Inject constructor(
     postExecutionThread: PostExecutionThread,
     private val userRepository: HeroContactsRepository
-) : ObservableUseCase<List<Hero>, LoadHeroesUseCase.InteractionArgument>(postExecutionThread) {
+) : ObservableUseCase<List<Hero>, BaseInteractionArgument>(postExecutionThread) {
 
-    override fun buildUseCaseObservable(argument: InteractionArgument): Observable<List<Hero>> {
-        return userRepository.loadHeroes(argument.offset)
+    override fun buildUseCaseObservable(argument: BaseInteractionArgument): Observable<List<Hero>> {
+        return userRepository.loadSquad()
     }
-
-    data class InteractionArgument(
-        val offset: Int
-    ) : BaseInteractionArgument()
 }

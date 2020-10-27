@@ -6,6 +6,7 @@ import com.android.androidchallenge.di.MainModuleComponent
 import com.android.androidchallenge.di.merge
 import com.android.base_di.*
 import com.android.domain.ApplicationSubscriptionHolder
+import com.facebook.stetho.Stetho
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -26,6 +27,7 @@ class MarvelApplication : Application(), HasAndroidInjector, ComponentProvider,
 
     override fun onCreate() {
         super.onCreate()
+        Stetho.initializeWithDefaults(this)
         initDagger()
     }
 

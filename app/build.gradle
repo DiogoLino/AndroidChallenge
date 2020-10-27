@@ -59,6 +59,9 @@ dependencies {
     implementation libraries.app.okhttp3
     implementation libraries.app.okhttpLogging
 
+    // Database debug
+    debugImplementation libraries.app.stetho
+
     implementation libraries.app.timber
     implementation libraries.app.ultimateRecyclerview
 

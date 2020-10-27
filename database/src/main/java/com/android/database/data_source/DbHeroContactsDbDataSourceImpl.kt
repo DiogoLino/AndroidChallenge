@@ -5,7 +5,6 @@ import com.android.database.mapper.toDomain
 import com.android.database.mapper.toEntity
 import com.android.repository.contacts.data_source.HeroContactsDbDataSource
 import com.android.repository.contacts.models.Hero
-import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -16,6 +15,10 @@ class DbHeroContactsDbDataSourceImpl @Inject constructor(
 
     override fun saveHeroes(heroes: List<Hero>) {
         heroesDao.insertHeroes(heroes.map { it.toEntity() })
+    }
+
+    override fun loadSquad(): Single<List<Hero>> {
+        return heroesDao.loadSquad().map { heroes -> heroes.map { it.toDomain() } }
     }
 
     override fun loadHeroes(offset: Int): Single<List<Hero>> {

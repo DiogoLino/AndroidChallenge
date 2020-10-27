@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">AndroidChallenge</string>
-
+    <string name="app_name">SuperHero Squad Marker</string>
 
     <string name="squad_title">My Squad</string>
+    <string name="add_button_text">%s Hire to Squad</string>
+    <string name="remove_button_text">%s Fire from Squad </string>
 
 
 </resources>

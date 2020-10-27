@@ -1,51 +1,41 @@
 package com.android.androidchallenge.ui.adapters
 
+import android.content.Context
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.android.androidchallenge.R
 import com.android.androidchallenge.utils.STANDARD
-import com.android.androidchallenge.utils.inflater
 import com.android.androidchallenge.views.CircleImageView
 import com.android.imageloader.ImageLoader
 import com.android.presentation.contacts.UiHero
 
-class HeroesAdapter(
-    private val imageLoader: ImageLoader,
+class SquadAdapter(
+    context: Context,
+    items: List<UiHero>,
+    val imageLoader: ImageLoader,
     private val onItemClickedAction: ((UiHero) -> Unit)? = null
-) : RecyclerView.Adapter<HeroesAdapter.HeroesViewHolder>() {
+) : RecyclerViewBaseAdapter<UiHero, Context, SquadAdapter.SquadViewHolder>(context, items) {
 
-    private var heroes = ArrayList<UiHero>()
 
-    override fun onBindViewHolder(holder: HeroesViewHolder, position: Int) {
-        holder.bind(heroes[position])
-    }
+    override fun getItemLayoutResId(): Int = R.layout.squad_item_view
 
-    override fun getItemCount(): Int = heroes.count() - 1
+    override fun createViewHolder(context: Context, view: View) =
+        SquadViewHolder(context, view)
 
-    fun addHeroes(heroList: List<UiHero>) {
-        heroes.addAll(heroList)
-        notifyDataSetChanged()
-    }
+    override fun getItemCount(): Int = items.count()
 
-    fun refreshAdapter(){
-        heroes.clear()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeroesViewHolder {
-        val view = parent.inflater.inflate(R.layout.heroes_item_view, parent, false)
-        return HeroesViewHolder(view)
-    }
-
-    inner class HeroesViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class SquadViewHolder(context: Context, view: View) :
+        RecyclerViewBaseAdapter.RecyclerViewBaseViewHolder<UiHero, Context>(
+            context,
+            view
+        ) {
 
         private val name = itemView.findViewById<TextView>(R.id.name)
         private val avatar = itemView.findViewById<CircleImageView>(R.id.avatar)
         private val rootView = itemView.findViewById<LinearLayout>(R.id.root_view)
 
-        fun bind(item: UiHero) {
+        override fun bind(item: UiHero, position: Int) {
             name.text = item.name
 
             imageLoader.load(
@@ -60,4 +50,5 @@ class HeroesAdapter(
             onItemClickedAction?.invoke(item)
         }
     }
+
 }
