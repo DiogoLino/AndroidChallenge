@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.androidchallenge.R
 import com.android.androidchallenge.di.inject
-import com.android.androidchallenge.ui.adapters.BaseMarvelActivity
+import com.android.androidchallenge.ui.BaseMarvelActivity
 import com.android.androidchallenge.ui.adapters.EndlessRecyclerViewScrollListener
 import com.android.androidchallenge.ui.adapters.HeroesAdapter
 import com.android.androidchallenge.ui.adapters.SquadAdapter
@@ -25,7 +25,7 @@ import javax.inject.Inject
 const val HERO_ARGS_KEY = "hero_args_key"
 const val HERO_ACTIVITY_REQUEST_CODE = 105
 
-const val VISIBLE_THRESHOLD = 20
+const val VISIBLE_THRESHOLD = 50
 const val FIRST_PAGE = 0
 
 class HeroesActivity : BaseMarvelActivity(), MarvelContactsView {
@@ -89,6 +89,8 @@ class HeroesActivity : BaseMarvelActivity(), MarvelContactsView {
         //check if needs to show squad
         if (heroes.isNotEmpty()) {
             populateSquad(heroes)
+        }else{
+            squadContainer.gone()
         }
     }
 
@@ -154,7 +156,6 @@ class HeroesActivity : BaseMarvelActivity(), MarvelContactsView {
     fun requestNextPage(page: Int) {
         presenter.loadHeroContacts(page)
     }
-
 
     private fun initHeroesAdapter() {
         heroesAdapter = HeroesAdapter(imageLoader) { onHeroClicked(it) }

@@ -9,15 +9,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/generic_60_dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <com.android.androidchallenge.views.CircleImageView
             android:id="@+id/avatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="10dp"
+            android:layout_width="@dimen/generic_40_dp"
+            android:layout_height="@dimen/generic_40_dp"
+            android:layout_marginEnd="@dimen/generic_10dp"
             tools:src="@drawable/ic_launcher_background" />
 
         <TextView
@@ -25,10 +25,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="@dimen/generic_20dp"
             android:layout_weight="1"
-            android:textStyle="bold"
             android:textColor="@color/black_compact"
+            android:textStyle="bold"
             tools:text="SuperMan" />
 
     </LinearLayout>
@@ -37,7 +37,7 @@
         android:id="@+id/dividerView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_item_separator_1dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="@dimen/generic_50_dp"
         android:background="@color/lightGrey" />
 
 </LinearLayout>

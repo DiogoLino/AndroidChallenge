@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import com.android.androidchallenge.R
 import com.android.androidchallenge.di.inject
-import com.android.androidchallenge.ui.adapters.BaseMarvelActivity
+import com.android.androidchallenge.ui.BaseMarvelActivity
 import com.android.androidchallenge.ui.dialog.DetailsDialog
 import com.android.androidchallenge.ui.home.HERO_ARGS_KEY
 import com.android.androidchallenge.utils.*
@@ -76,6 +76,11 @@ class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
+    }
+
     override fun setContentView() {
         setContentView(R.layout.hero_detail_activity)
     }
@@ -105,5 +110,4 @@ class HeroDetailsActivity : BaseMarvelActivity(), HeroContactDetailsView {
             removeButton.gone()
         }
     }
-
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView xmlns:tools="http://schemas.android.com/tools"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -13,7 +13,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
 
             <ImageView
                 android:id="@+id/hero_poster"
@@ -23,12 +22,14 @@
 
             <TextView
                 android:id="@+id/hero_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="@dimen/generic_40_dp"
+                android:gravity="center_horizontal"
+                android:textAlignment="center"
                 android:textColor="@color/black_compact"
-                android:textSize="40sp"
+                android:textSize="@dimen/text_size_40"
                 android:textStyle="bold"
                 tools:text="Superman" />
 
@@ -36,18 +37,18 @@
                 android:id="@+id/addButton"
                 style="@style/PurpleSelectableButton"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/generic_60_dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/generic_20dp"
                 android:visibility="gone" />
 
             <Button
                 android:id="@+id/removeButton"
                 style="@style/RedSelectableButton"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="@dimen/generic_60_dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/generic_20dp"
                 android:visibility="gone" />
 
 
@@ -56,9 +57,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginStart="@dimen/generic_15_dp"
+                android:layout_marginTop="@dimen/generic_20dp"
+                android:layout_marginEnd="@dimen/generic_15_dp"
                 android:textAlignment="center"
                 tools:text="Rick Jones has Hulk's best bud since day one, but now he's more than a friend...he's a teammate! Transformed by a Gamma energy explosion, A-Bomb's thick, armored skin is just as strong and powerful as it is blue. And when he curls into action, he uses it like a giant bowling ball of destruction!" />
 

@@ -3,4 +3,13 @@
     <dimen name="list_item_separator_1dp">1dp</dimen>
 
     <dimen name="textSize40">40sp</dimen>
+    <dimen name="generic_10dp">10dp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="generic_20dp">20dp</dimen>
+    <dimen name="generic_50_dp">50dp</dimen>
+    <dimen name="generic_40_dp">40dp</dimen>
+    <dimen name="generic_60_dp">60dp</dimen>
+    <dimen name="text_size_40">40sp</dimen>
+    <dimen name="generic_15_dp">15dp</dimen>
+    <dimen name="generic_70_dp">70dp</dimen>
 </resources>

@@ -20,6 +20,9 @@ private const val FIFTEEN = 15L
 private const val TWENTY = 20L
 
 const val API_BASE_URL = "https://gateway.marvel.com/v1/public/"
+const val TS_PATH = "ts"
+const val API_KEY_PATH = "apikey"
+const val HASH_PATH = "hash"
 
 @Module
 open class ApiModule {
@@ -101,9 +104,9 @@ open class ApiModule {
         return chain.request()
             .url
             .newBuilder()
-            .addQueryParameter("ts", authApi.timeStamp)
-            .addQueryParameter("apikey", authApi.publicKey)
-            .addQueryParameter("hash", authApi.md5Key)
+            .addQueryParameter(TS_PATH, authApi.timeStamp)
+            .addQueryParameter(API_KEY_PATH, authApi.publicKey)
+            .addQueryParameter(HASH_PATH, authApi.md5Key)
     }
 }
 

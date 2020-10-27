@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="@dimen/generic_10dp"
         android:orientation="vertical"
         tools:context=".ui.home.HeroesActivity">
 
@@ -16,7 +16,7 @@
             android:id="@+id/squad_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/generic_10dp"
             android:orientation="vertical"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
@@ -24,18 +24,18 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:textSize="16sp"
-                android:textColor="@color/black_compact"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/squad_title" />
+                android:text="@string/squad_title"
+                android:textColor="@color/black_compact"
+                android:textSize="@dimen/text_size_16"
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/squad_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="@dimen/generic_10dp" />
 
 
         </LinearLayout>

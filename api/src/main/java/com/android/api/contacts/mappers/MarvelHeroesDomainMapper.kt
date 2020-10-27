@@ -14,7 +14,6 @@ fun ApiHeroes.toDomain(offset: Int): Hero =
         thumbnailPath = apiHeroThumbnail.toDomain()
     )
 
-
 fun ApiHeroThumbnail.toDomain(): HeroThumbnail = HeroThumbnail(
     path = path,
     extension = extension

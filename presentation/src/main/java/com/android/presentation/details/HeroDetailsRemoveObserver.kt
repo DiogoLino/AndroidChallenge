@@ -10,5 +10,4 @@ class HeroDetailsRemoveObserver(
         super.onComplete()
         detailsView.onSquadMemberRemoved()
     }
-
 }

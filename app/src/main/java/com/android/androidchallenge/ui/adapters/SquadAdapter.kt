@@ -17,7 +17,6 @@ class SquadAdapter(
     private val onItemClickedAction: ((UiHero) -> Unit)? = null
 ) : RecyclerViewBaseAdapter<UiHero, Context, SquadAdapter.SquadViewHolder>(context, items) {
 
-
     override fun getItemLayoutResId(): Int = R.layout.squad_item_view
 
     override fun createViewHolder(context: Context, view: View) =

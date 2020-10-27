@@ -7,7 +7,6 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import javax.inject.Inject
 
-
 class HeroContactsRepository @Inject constructor(
     private val heroContactsApiDataSource: HeroContactsApiDataSource,
     private val heroContactsDbDataSource: HeroContactsDbDataSource
@@ -21,7 +20,6 @@ class HeroContactsRepository @Inject constructor(
                     .doOnNext { heroContactsDbDataSource.saveHeroes(it) }
             )
     }
-
 
     private fun loadFromApi(offset: Int): Observable<List<Hero>> {
         return heroContactsApiDataSource.loadHeroes(offset)
@@ -45,6 +43,4 @@ class HeroContactsRepository @Inject constructor(
     fun addHeroToSquad(hero: Hero): Completable {
         return Completable.fromAction { heroContactsDbDataSource.addHeroToSquad(hero) }
     }
-
-
 }

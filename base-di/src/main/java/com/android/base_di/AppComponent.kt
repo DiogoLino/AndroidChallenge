@@ -9,7 +9,6 @@ import com.android.database.RoomModule
 import com.android.domain.PostExecutionThread
 import com.android.imageloader.ImageLoader
 import com.android.imageloader.ImageLoaderModule
-import com.android.repository.RepositoryModule
 import com.android.repository.contacts.HeroContactsRepository
 import com.android.repository.contacts.data_source.HeroContactsApiDataSource
 import com.android.repository.contacts.data_source.HeroContactsDbDataSource
@@ -25,7 +24,6 @@ import javax.inject.Singleton
         AndroidInjectionModule::class,
         ApiModule::class,
         RoomModule::class,
-        RepositoryModule::class,
         DataModule::class,
         ImageLoaderModule::class
     ]

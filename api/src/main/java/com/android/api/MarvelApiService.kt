@@ -17,5 +17,4 @@ interface MarvelApiService {
         @Query("orderBy") orderBy: String = ORDER_BY_NAME
     ): Observable<ApiBaseMarvel>
 
-
 }
