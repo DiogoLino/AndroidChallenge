@@ -1,4 +1,4 @@
-# AndroidChallenge
+# Marvel
 
 This is Modularized Project with MvP pattern , to load Characters From https://developer.marvel.com/ and display in a alphabetic order.
 This Api requires key authentication md5.
